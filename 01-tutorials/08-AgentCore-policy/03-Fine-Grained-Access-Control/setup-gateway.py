@@ -134,9 +134,7 @@ def get_existing_gateway(
     return None
 
 
-def get_existing_target(
-    region: str, gateway_id: str, target_name: str
-) -> dict | None:
+def get_existing_target(region: str, gateway_id: str, target_name: str) -> dict | None:
     """Check if a target with the given name exists on the gateway."""
     boto_client = boto3.client("bedrock-agentcore-control", region_name=region)
 
@@ -386,7 +384,10 @@ def setup_gateway(region: str = None, role_arn: str = None):
             print(f"✓ Lambda target '{target_name}' created and attached to gateway\n")
         except Exception as exc:
             error_str = str(exc)
-            if "ConflictException" in str(type(exc).__name__) or "already exists" in error_str:
+            if (
+                "ConflictException" in str(type(exc).__name__)
+                or "already exists" in error_str
+            ):
                 print(f"✓ Lambda target '{target_name}' already exists, reusing\n")
                 lambda_target = {"gatewayArn": gateway.get("gatewayArn")}
             else:
