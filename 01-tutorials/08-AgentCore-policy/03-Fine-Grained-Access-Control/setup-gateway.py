@@ -26,7 +26,6 @@ import tempfile
 import os
 from pathlib import Path
 import boto3
-from botocore.exceptions import ClientError
 from bedrock_agentcore_starter_toolkit.operations.gateway.client import GatewayClient
 
 
@@ -274,7 +273,7 @@ def setup_gateway(region: str = None, role_arn: str = None):
     if not region:
         region = get_default_region()
 
-    print(f"\n🚀 Setting up AgentCore Gateway...")
+    print("\n🚀 Setting up AgentCore Gateway...")
     print(f"Region: {region}\n")
 
     # Initialize client
